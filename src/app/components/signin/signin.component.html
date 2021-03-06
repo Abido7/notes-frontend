@@ -1,0 +1,30 @@
+<div id="signIn">
+    <div class="container">
+        <form [formGroup]='formData' (ngSubmit)="registerForm()" class="form w-50 m-auto">
+            <input formControlName="email" type="email" placeholder="Enter Your Email"
+                [class.is-valid]="formData.get('email').valid" class="form-control my-3">
+            <div class="alert alert-danger" *ngIf="formData.get('email').errors && formData.get('email').touched">
+                <p *ngIf="formData.get('email').errors.required" class="text-muted">Email required</p>
+                <p *ngIf="formData.get('email').errors.email" class="text-muted">Invalid Email</p>
+            </div>
+            <input formControlName="password" type="password" placeholder="Enter password"
+                [class.is-valid]="formData.get('password').valid" class="form-control my-3">
+            <div class="alert alert-danger" *ngIf="formData.get('password').errors && formData.get('password').touched">
+                <p *ngIf="formData.get('password').errors.required" class="text-muted">password required</p>
+                <ol *ngIf="formData.get('password').errors.pattern" class="text-muted">
+                    <li>password must contains capital chars</li>
+                    <li>password must contains small chars</li>
+                    <li>password must contains spcial chars</li>
+                    <li>password must at least 8 chars</li>
+                </ol>
+            </div>
+            <button [disabled]="formData.invalid" [ngStyle]="formData.invalid?inValidStyle:{}"
+                class="btn btn-info w-100">
+                <span *ngIf="!isclicked">Sign In</span>
+                <span *ngIf="isclicked">Waiting...</span>
+            </button>
+                <div *ngIf="success" class="alert alert-success mt-2 p-1 text-center">{{success}}</div>
+                <div *ngIf="error" class="alert alert-danger mt-2 p-1 text-center">{{error}}</div>
+        </form>
+    </div>
+</div>

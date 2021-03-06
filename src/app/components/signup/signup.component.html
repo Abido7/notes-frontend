@@ -1,0 +1,63 @@
+<div id="signUp">
+    <div class="container">
+        <form [formGroup]='formData' (ngSubmit)="formData.valid&&registerForm()" class="form w-50 m-auto">
+            <div class="row">
+                <div class="col-md-6">
+                    <input formControlName="first_name" type="text" placeholder="Enter First Name"
+                        [class.is-valid]="formData.get('first_name').valid" class="form-control  my-3">
+                    <div class="alert alert-danger mt-0 p-1"
+                        *ngIf="formData.get('first_name').errors && formData.get('first_name').touched">
+                        <p *ngIf="formData.get('first_name').errors.required" class="text-muted">first name required</p>
+                        <p *ngIf="formData.get('first_name').errors.minlength" class="text-muted">first name minLength 3
+                            chars</p>
+                        <p *ngIf="formData.get('first_name').errors.maxlength" class="text-muted">first name maxLength
+                            20 chars</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input formControlName="last_name" type="text" placeholder="Enter Last Name"
+                        [class.is-valid]="formData.get('last_name').valid" class="form-control  my-3">
+                    <div class="alert alert-danger mt-0 p-1"
+                        *ngIf="formData.get('last_name').errors && formData.get('last_name').touched">
+                        <p *ngIf="formData.get('last_name').errors.required" class="text-muted">last name required</p>
+                        <p *ngIf="formData.get('last_name').errors.minlength" class="text-muted">last name minLength 3
+                            chars</p>
+                        <p *ngIf="formData.get('last_name').errors.maxlength" class="text-muted">last name maxLength 20
+                            chars</p>
+                    </div>
+                </div>
+            </div>
+            <input formControlName="age" type="number" placeholder="Enter Your age"
+                [class.is-valid]="formData.get('age').valid" class="form-control my-3">
+            <div class="alert alert-danger mt-0 p-1" *ngIf="formData.get('age').errors && formData.get('age').touched">
+                <p *ngIf="formData.get('age').errors.required" class="text-muted">Age required</p>
+                <p *ngIf="formData.get('age').errors.min" class="text-muted">age must more than 10 years</p>
+                <p *ngIf="formData.get('age').errors.max" class="text-muted">age must less than 100 years</p>
+            </div>
+            <input formControlName="email" type="email" placeholder="Enter Your Email"
+                [class.is-valid]="formData.get('email').valid" class="form-control my-3">
+            <div class="alert alert-danger mt-0 p-1" *ngIf="formData.get('email').errors && formData.get('email').touched">
+                <p *ngIf="formData.get('email').errors.required" class="text-muted">Email required</p>
+                <p *ngIf="formData.get('email').errors.email" class="text-muted">Invalid Email</p>
+            </div>
+            <input formControlName="password" type="password" placeholder="Enter password"
+                [class.is-valid]="formData.get('password').valid" class="form-control my-3">
+            <div class="alert alert-danger mt-0 p-1" *ngIf="formData.get('password').errors && formData.get('password').touched">
+                <p *ngIf="formData.get('password').errors.required" class="text-muted">password required</p>
+                <ol *ngIf="formData.get('password').errors.pattern" class="text-muted">
+                    <li>password must contains capital chars</li>
+                    <li>password must contains small chars</li>
+                    <li>password must contains spcial chars</li>
+                    <li>password must at least 8 chars</li>
+                </ol>
+            </div>
+            <button [disabled]="formData.invalid" [ngStyle]="formData.invalid?inValidStyle:{}"
+                class="btn btn-info w-100">
+                <span *ngIf="!isclicked">Sign Up</span>
+                <span *ngIf="isclicked">Waiting...</span>
+            </button>
+            <div *ngIf="success" class="alert alert-success mt-2 p-1 text-center">{{success}}</div>
+            <div *ngIf="error" class="alert alert-danger mt-2 p-1 text-center">{{error}}</div>
+        </form>
+    </div>
+</div>
